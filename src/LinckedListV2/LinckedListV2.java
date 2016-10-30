@@ -18,40 +18,67 @@ public class LinckedListV2 implements Collection<Object> {
 	@Override
 	public boolean add(Object value) {
 		Node newNode = null;
-		if (firstEl == null) {
+		if (this.isEmpty()) {
 			newNode = new Node(null, null, value);
-			lastEl = newNode;
-			firstEl = lastEl;
+			firstEl = newNode;
+			lastEl = firstEl;
 		} else {
+
 			newNode = new Node(null, lastEl, value);
+			lastEl.setNext(newNode);
 			lastEl = newNode;
 		}
+
 		size++;
 		return true;
 	}
 
 	@Override
 	public boolean remove(Object value) {
+		Node currentNode = firstEl;
 		if (!this.isEmpty()) {
-			if (firstEl == lastEl) {
-				if (firstEl.getValue().equals(value)) {
+			if (firstEl.getValue().equals(value)) {
+				if (firstEl.getNext() == null) {
 					firstEl = null;
 					lastEl = null;
-				}
-			} else {
-				Node currentNode = firstEl;
-				while (currentNode.getNext() != null) {
-					if (currentNode.getValue().equals(value)) {
-						currentNode.getNext().setPrev(currentNode.getPrev());
-						currentNode.getPrev().setNext(currentNode.getNext());
-						System.out.println("dfd");
-					}
+					System.out.println("dfd");
+					size--;
+					return true;
 				}
 			}
-			size--;
-			return true;
+
+			else if (lastEl.getValue().equals(value)) {
+				lastEl = lastEl.getPrev();
+				lastEl.setNext(null);
+				size--;
+				return true;
+			} else {
+				while (currentNode.getNext() != null) {
+					if (currentNode.getValue().equals(value)) {
+						if (currentNode.getPrev() == null) {
+							currentNode.getNext().setPrev(null);
+							System.out.println("dfd");
+							size--;
+							return true;
+						}
+
+						else {
+							currentNode.getNext().setPrev(currentNode.getPrev());
+							currentNode.getPrev().setNext(currentNode.getNext());
+							size--;
+							return true;
+						}
+
+					}
+					currentNode = currentNode.getNext();
+				}
+			}
+
 		}
-		return false;
+
+		else
+			System.out.println("dfd");
+		return true;
 	}
 
 	public Node getFirst() {

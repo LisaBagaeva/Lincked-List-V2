@@ -58,17 +58,14 @@ public class LinckedListV2 implements Collection<Object> {
 						if (currentNode.getPrev() == null) {
 							currentNode.getNext().setPrev(null);
 							System.out.println("dfd");
-							size--;
-							return true;
 						}
 
 						else {
 							currentNode.getNext().setPrev(currentNode.getPrev());
 							currentNode.getPrev().setNext(currentNode.getNext());
-							size--;
-							return true;
 						}
-
+						size--;
+						return true;
 					}
 					currentNode = currentNode.getNext();
 				}
@@ -76,9 +73,7 @@ public class LinckedListV2 implements Collection<Object> {
 
 		}
 
-		else
-			System.out.println("dfd");
-		return true;
+		return false;
 	}
 
 	public Node getFirst() {

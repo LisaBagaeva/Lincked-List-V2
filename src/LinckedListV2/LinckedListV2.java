@@ -41,7 +41,6 @@ public class LinckedListV2 implements Collection<Object> {
 				if (firstEl.getNext() == null) {
 					firstEl = null;
 					lastEl = null;
-					System.out.println("dfd");
 					size--;
 					return true;
 				}
@@ -57,7 +56,6 @@ public class LinckedListV2 implements Collection<Object> {
 					if (currentNode.getValue().equals(value)) {
 						if (currentNode.getPrev() == null) {
 							currentNode.getNext().setPrev(null);
-							System.out.println("dfd");
 						}
 
 						else {

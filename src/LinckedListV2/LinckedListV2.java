@@ -3,10 +3,10 @@ package LinckedListV2;
 import java.util.Collection;
 import java.util.Iterator;
 
-public class LinckedListV2 implements Collection<Object> {
+public class LinckedListV2 <E> implements Collection<E> {
 	private int size;
-	private Node firstEl;
-	private Node lastEl;
+	private Node <E> firstEl;
+	private Node <E> lastEl;
 	private final static int DEFAULTSIZE = 0;
 
 	public LinckedListV2() {
@@ -15,16 +15,15 @@ public class LinckedListV2 implements Collection<Object> {
 		this.lastEl = null;
 	}
 
-	@Override
-	public boolean add(Object value) {
-		Node newNode = null;
+	public boolean add(E value) {
+		Node<E> newNode = null;
 		if (this.isEmpty()) {
-			newNode = new Node(null, null, value);
+			newNode = new Node<E>(null, null, value);
 			firstEl = newNode;
 			lastEl = firstEl;
 		} else {
 
-			newNode = new Node(null, lastEl, value);
+			newNode = new Node<E>(null, lastEl, value);
 			lastEl.setNext(newNode);
 			lastEl = newNode;
 		}
@@ -33,77 +32,54 @@ public class LinckedListV2 implements Collection<Object> {
 		return true;
 	}
 
-	@Override
-	public boolean remove(Object value) {
-		Node currentNode = firstEl;
+	public  LinckedListV2<E> removeElement(E value) {
+		Node<E> currentNode = firstEl;
 		if (!this.isEmpty()) {
 			if (firstEl.getValue().equals(value)) {
 				if (firstEl.getNext() == null) {
 					firstEl = null;
 					lastEl = null;
 					size--;
-					return true;
+					return this;
 				}
+				else {
+					currentNode.getNext().setPrev(currentNode.getPrev());
+					firstEl = currentNode.getNext();
+					size--;
+				return this;
+			}
 			}
 
 			else if (lastEl.getValue().equals(value)) {
 				lastEl = lastEl.getPrev();
 				lastEl.setNext(null);
 				size--;
-				return true;
+				return this;
 			} else {
 				while (currentNode.getNext() != null) {
 					if (currentNode.getValue().equals(value)) {
-						if (currentNode.getPrev() == null) {
-							currentNode.getNext().setPrev(null);
-						}
-
-						else {
 							currentNode.getNext().setPrev(currentNode.getPrev());
 							currentNode.getPrev().setNext(currentNode.getNext());
-						}
+						
 						size--;
-						return true;
+						return this;
 					}
+				
 					currentNode = currentNode.getNext();
 				}
 			}
 
 		}
 
-		return false;
+		return this;
 	}
 
-	public Node getFirst() {
+	public Node<E> getFirst() {
 		return firstEl;
 	}
 
-	public Node getFLast() {
+	public Node<E> getFLast() {
 		return lastEl;
-	}
-
-	@Override
-	public boolean addAll(Collection arg0) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public void clear() {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public boolean contains(Object arg0) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean containsAll(Collection arg0) {
-		// TODO Auto-generated method stub
-		return false;
 	}
 
 	@Override
@@ -115,27 +91,57 @@ public class LinckedListV2 implements Collection<Object> {
 	}
 
 	@Override
-	public Iterator iterator() {
+	public int size() {
+
+		return size;
+	}
+
+	@Override
+	public boolean addAll(Collection<? extends E> c) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public void clear() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public boolean contains(Object o) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean containsAll(Collection<?> c) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public Iterator<E> iterator() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public boolean removeAll(Collection arg0) {
+	public boolean remove(Object o) {
 		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
-	public boolean retainAll(Collection arg0) {
+	public boolean removeAll(Collection<?> c) {
 		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
-	public int size() {
-
-		return size;
+	public boolean retainAll(Collection<?> c) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 
 	@Override
@@ -145,9 +151,11 @@ public class LinckedListV2 implements Collection<Object> {
 	}
 
 	@Override
-	public Object[] toArray(Object[] arg0) {
+	public <T> T[] toArray(T[] a) {
 		// TODO Auto-generated method stub
 		return null;
 	}
+	
+
 
 }

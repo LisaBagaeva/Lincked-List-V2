@@ -1,44 +1,45 @@
 package LinckedListV2;
 
-public class Node {
-	private Node next;
-	private Node prev;
-	private Object value;
+public class Node <T>{
+	private Node <T> next;
+	private Node <T> prev;
+	private T value;
 	
-	public Node(Node next, Node prev, Object value)
+	public Node(Node <T> next, Node <T> prev, T value)
 	{
 		this.next= next;
 		this.prev = prev;
 		this.value = value;
 	}
 	
-	public Node getNext()
+	public Node<T> getNext()
 	{
          return next;		
 	}
 	
-	public Node getPrev()
+	public Node<T> getPrev()
 	{
 		return prev;
 	}
 	
-	public Object getValue()
+	public T getValue()
 	{
 		return value;
 	}
 	
-	public void setNext(Node next)
+	public void setNext(Node<T> next)
 	{
 		this.next = next;
 	}
 	
-	public void setPrev(Node prev)
+	public void setPrev(Node<T> prev)
 	{
 		this.prev = prev;
 	}
 	
-	public void setValue(Object value)
+	public void setValue(T value)
 	{
 		this.value = value;
 	}
+	
 }

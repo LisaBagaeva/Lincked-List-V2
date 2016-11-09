@@ -1,12 +1,12 @@
 package LinckedListV2;
 
-public class LinckedListV2<E> {
+public class LinkedListV2<E> {
 	private int size;
 	private Node<E> firstEl;
 	private Node<E> lastEl;
 	private final static int DEFAULTSIZE = 0;
 
-	public LinckedListV2() {
+	public LinkedListV2() {
 		this.size = DEFAULTSIZE;
 		this.firstEl = null;
 		this.lastEl = null;
@@ -19,12 +19,10 @@ public class LinckedListV2<E> {
 			firstEl = newNode;
 			lastEl = firstEl;
 		} else {
-
 			newNode = new Node<E>(null, lastEl, value);
 			lastEl.setNext(newNode);
 			lastEl = newNode;
 		}
-
 		size++;
 		return true;
 	}
@@ -39,8 +37,8 @@ public class LinckedListV2<E> {
 					size--;
 					return true;
 				} else {
-					currentNode.getNext().setPrev(currentNode.getPrev());
-					firstEl = currentNode.getNext();
+					firstEl.getNext().setPrev(null);
+					firstEl = firstEl.getNext();
 					size--;
 					return true;
 				}
@@ -56,7 +54,6 @@ public class LinckedListV2<E> {
 					if (currentNode.getValue().equals(value)) {
 						currentNode.getNext().setPrev(currentNode.getPrev());
 						currentNode.getPrev().setNext(currentNode.getNext());
-
 						size--;
 						return true;
 					}
@@ -67,14 +64,44 @@ public class LinckedListV2<E> {
 
 		}
 
-		return true;
+		return false;
+	}
+
+	/**
+	 * 
+	 * @param value
+	 *            - E value
+	 * @return index of element. If element not found return -1
+	 */
+
+	public int getIndex(E value) {
+		Node<E> currentNode = firstEl;
+		int index = 0;
+		if (!this.isEmpty()) {
+			if (firstEl.getNext() == null) {
+				if (firstEl.getValue().equals(value))
+					return 0;
+			} else if (lastEl.getValue().equals(value))
+				return size - 1;
+			else {
+				while (currentNode.getNext() != null) {
+					if (currentNode.getValue().equals(value)) {
+						return index;
+					} else {
+						currentNode = currentNode.getNext();
+						index++;
+					}
+				}
+			}
+		}
+		return -1;
 	}
 
 	public Node<E> getFirst() {
 		return firstEl;
 	}
 
-	public Node<E> getFLast() {
+	public Node<E> getLast() {
 		return lastEl;
 	}
 

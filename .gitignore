@@ -1,4 +1,6 @@
 src/LinckedListV2/Main.java
+src/Stack
+src/Queue
 bin/
 .settings/
 .classpath

@@ -67,13 +67,7 @@ public class LinkedListV2<E> {
 		return false;
 	}
 
-	/**
-	 * 
-	 * @param value
-	 *            - E value
-	 * @return index of element. If element not found return -1
-	 */
-
+	
 	public int getIndex(E value) {
 		Node<E> currentNode = firstEl;
 		int index = 0;
@@ -96,6 +90,31 @@ public class LinkedListV2<E> {
 		}
 		return -1;
 	}
+	
+	public void reverseList(LinkedListV2<E> list)
+	{
+		if(list.size() == 0)
+			throw new IllegalArgumentException(
+					"List is empty");
+		if(list.size() == 1)
+			throw new IllegalArgumentException(
+					"List contains one element.");
+			
+		Node<E> beforeNode = firstEl;
+		Node<E> currentNode = beforeNode.getNext();
+		Node<E> nextNode = currentNode.getNext();
+		currentNode.setNext(beforeNode);
+		beforeNode.setNext(null);
+		
+		while(nextNode != null)
+		{	
+			beforeNode = currentNode;
+			currentNode = nextNode;		
+			nextNode = nextNode.getNext();
+			currentNode.setNext(beforeNode);
+		}	
+	}
+	
 
 	public Node<E> getFirst() {
 		return firstEl;
@@ -115,4 +134,5 @@ public class LinkedListV2<E> {
 	public int size() {
 		return size;
 	}
+	
 }
